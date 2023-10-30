@@ -1,1 +1,2 @@
-YALI - An IPS model with honeypot
+final year project
+YALI - A hybrid IPS model with honeypot
