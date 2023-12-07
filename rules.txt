@@ -1,0 +1,16 @@
+#Alert for ICMP (Ping) Traffic:
+#alert ICMP 192.168.1.0/24 -> 10.0.0.2 any
+
+#Alert for UDP DNS Requests:
+#alert UDP any any -> 8.8.8.8 53 "eargfd"
+
+#Alert for Outbound FTP Traffic:
+#alert TCP 192.168.1.0/24 any -> any 21
+
+#Alert for HTTPS Traffic to Specific Server:
+alert ICMP any any -> any any (msg:"ICMP Traffic",sid:10001)
+
+#Alert for Any Protocol to a Specific Network Range:
+#alert any 192.168.1.0/24 any -> 10.0.0.0/24 any
+
+alert TCP 192.168.188.187 any -> any any  
