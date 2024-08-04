@@ -72,4 +72,4 @@ This project was developed collaboratively by a dedicated team. Contributions ar
 
 ## Contact
 
-For any queries, please reach out to [Lakshmi Narayan.P](mailto:lakannna6@gmail.com).
+For any queries, please reach out to [Lakshmi Narayan.P](mailto:lakshminarayan15903@gmail.com).
