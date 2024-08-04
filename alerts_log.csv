@@ -1,0 +1,22 @@
+Event,Time,action,Msg,Sid
+1,2024-06-25 09:03:37.786062,drop,TCP packet detected with payload: password, 10001
+2,2024-06-25 09:07:54.622754,drop,HTTP directory traversal attempt detected, 10001
+3,2024-06-27 00:49:27.607590,drop,SYN Flood attack detected,10009
+4,2024-06-27 00:59:45.888015,drop,SYN Flood attack detected,10009
+5,2024-06-27 01:42:57.985147,drop,HTTP directory traversal attempt detected,10017
+6,2024-06-27 01:44:12.263584,drop,HTTP directory traversal attempt detected,10017
+7,2024-06-27 01:48:09.368943,drop,HTTP directory traversal attempt detected,10017
+8,2024-06-27 01:54:25.248215,drop,HTTP directory traversal attempt detected,10017
+9,2024-06-27 01:55:19.372750,drop,DDoS HTTP Flood detected,10005
+10,2024-07-15 09:10:48.851875,drop,DDoS HTTP Flood detected,10005
+11,2024-07-15 09:10:49.871018,drop,DDoS HTTP Flood detected,10005
+12,2024-07-15 09:14:34.502816,drop,DDoS HTTP Flood detected,10005
+13,2024-07-15 09:14:35.503587,drop,DDoS HTTP Flood detected,10005
+14,2024-07-15 09:17:32.026542,drop,DDoS HTTP Flood detected,10005
+15,2024-07-15 09:17:32.998301,drop,DDoS HTTP Flood detected,10005
+16,2024-07-15 09:26:35.017701,drop,DDoS HTTP Flood detected,10005
+17,2024-07-15 09:26:35.980779,drop,DDoS HTTP Flood detected,10005
+18,2024-07-15 09:38:17.242731,drop,DDoS HTTP Flood detected,10005
+19,2024-07-15 09:44:14.013913,drop,DDoS HTTP Flood detected,10005
+20,2024-07-15 09:45:10.612234,drop,DDoS HTTP Flood detected,10005
+21,2024-07-15 09:46:17.176657,drop,DDoS HTTP Flood detected,10005
