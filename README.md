@@ -1,6 +1,6 @@
 # YALI-IPS
 
-YALI (Your Advanced Level Intrusion Prevention System) is a robust Intrusion Prevention System (IPS) designed to monitor, detect, and prevent malicious activities on a network. This project focuses on providing security for network traffic by analyzing packets, applying rules, and logging alerts.
+YALI (Yet Another Layer of Intrusion prevention) is a robust Intrusion Prevention System (IPS) designed to monitor, detect, and prevent malicious activities on a network. This project focuses on providing security for network traffic by analyzing packets, applying rules, and logging alerts.
 
 ## Features
 
