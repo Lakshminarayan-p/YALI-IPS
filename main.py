@@ -3,7 +3,7 @@ import csv
 from threading import Thread
 from ssh_log import monitor_auth_log
 from ftp_log import monitor_vsftpd_log
-from process_packet import start_sniffing
+from process_packet import start_nfqueue
 
 def initialize_alerts_log():
     file_name = "alerts_log.csv"
@@ -16,13 +16,13 @@ def initialize_alerts_log():
 if __name__ == "__main__":
     initialize_alerts_log()
 
-    auth_log_thread = Thread(target=monitor_auth_log)
-    auth_log_thread.daemon = True
-    auth_log_thread.start()
+    # auth_log_thread = Thread(target=monitor_auth_log)
+    # auth_log_thread.daemon = True
+    # auth_log_thread.start()
 
-    vsftpd_log_thread = Thread(target=monitor_vsftpd_log)
-    vsftpd_log_thread.daemon = True
-    vsftpd_log_thread.start()
+    # vsftpd_log_thread = Thread(target=monitor_vsftpd_log)
+    # vsftpd_log_thread.daemon = True
+    # vsftpd_log_thread.start()
 
-    start_sniffing()
-
+    #start_sniffing()
+    start_nfqueue(queue_num=1)

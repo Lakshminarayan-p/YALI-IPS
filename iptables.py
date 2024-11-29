@@ -10,7 +10,7 @@ def is_ip_blocked(ip_address):
 
 def drop_packet(source_ip):
     if not is_ip_blocked(source_ip):
-        command = f"sudo iptables -A INPUT  -s {source_ip} -j DROP"
+        command = f"sudo iptables -I INPUT 1 -s {source_ip} -j DROP"
     #c2 = f"sudo ufw reload"
     #ommand = f"echo sudo iptables -A INPUT -s {source_ip} -d {destination_ip} -j DROP"
         subprocess.run(command, shell=True)
