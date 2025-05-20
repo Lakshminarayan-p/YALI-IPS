@@ -120,12 +120,21 @@ def match_rules(packet_info):
 
     for rule in relevant_rules:
         if match_snort_rule(packet_info, rule) == 1:
-            return 1
+            return 1 
 
 
 def get_url(packet):
     return packet[http.HTTPRequest].Host.decode() + packet[http.HTTPRequest].Path.decode()
 
+def get_login_info(packet):
+    if packet.haslayer(scapy.Raw):
+        load = packet[scapy.Raw].load
+        try:
+            load_str = load.decode('utf-8')  # Decode bytes to string
+        except UnicodeDecodeError:
+            load_str = load.decode('latin1')  # Handle decoding issues
+        return load_str
+    return None
 
 # Reassemble fragmented IP packets
 def reassemble_fragments(fragments):
@@ -136,6 +145,12 @@ def reassemble_fragments(fragments):
             data += bytes(fragment[Raw].load)
     reassembled_packet = fragments[0].copy()
     reassembled_packet[Raw].load = data
+    
+    if reassembled_packet.haslayer(Raw):
+        reassembled_packet[Raw].load = data
+    else:
+        reassembled_packet.add_payload(Raw(load=data))
+    
     del reassembled_packet[IP].chksum
     return reassembled_packet
 
@@ -143,7 +158,7 @@ def reassemble_fragments(fragments):
 # Detect malicious content
 def is_malicious(packet):
     malicious_signature = b'BADCONTENT'
-    payload = bytes(packet[Raw].load) if packet.haslayer(Raw) else b""
+    payload = bytes(packet[Raw].load) if packet.haslayer(Raw) else ""
     return malicious_signature in payload
 
 
@@ -164,16 +179,19 @@ def block_ip(ip_address):
 
 def process_packet(packet):
     packet = IP(packet.get_payload())
-    
+    print(f"Received packet: {packet.summary()}")
     if packet.haslayer(IP) and (packet[IP].flags & 1 or packet[IP].frag > 0):
+        print("its")
         key = (packet[IP].src, packet[IP].dst, packet[IP].id)
         if key not in fragments:
             fragments[key] = []
         fragments[key].append(packet)
         if not packet[IP].flags & 1:
             reassembled_packet = reassemble_fragments(fragments[key])
-            if is_malicious(reassembled_packet):
-                report_malicious(reassembled_packet)
+            if match_rules(reassembled_packet):
+                return 1
+            #if is_malicious(reassembled_packet):
+             #   report_malicious(reassembled_packet)
             del fragments[key]
     else:
         ip_layer = packet.getlayer("IP")
@@ -199,7 +217,7 @@ def process_packet(packet):
             "protocol": ip_layer.proto if ip_layer else None,
             "ttl": ip_layer.ttl if ip_layer else None,
             "flags": tcp_layer.flags if tcp_layer else None,
-            "payload": payload,
+            "payload": get_login_info(packet) if url else payload,
             "icmp_type": icmp_layer.type if icmp_layer else None,
             "icmp_code": icmp_layer.code if icmp_layer else None,
             "time": packet.time,
@@ -236,3 +254,4 @@ def start_nfqueue(queue_num=1):
     finally:
         subprocess.call(['iptables', '-D', 'INPUT', '-j', 'NFQUEUE', '--queue-num', str(queue_num)])
         subprocess.call(['iptables', '-D', 'FORWARD', '-j', 'NFQUEUE', '--queue-num', str(queue_num)])
+    
